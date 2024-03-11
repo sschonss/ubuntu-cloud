@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  app:
+    container_name: ubuntu-cloud
+    build:
+      context: .
+      args:
+        USER_DOCKER: $USER_DOCKER
+        PASSWORD_DOCKER: $PASSWORD_DOCKER
+    volumes:
+      - ./data:/home
+    ports:
+      - "8080:8080"
+    entrypoint: 
+      - /bin/sh
+      - -c
+      - |
+        echo "user: $USER_DOCKER"
+        echo "password: $PASSWORD_DOCKER"
+        echo "Starting app"
+        echo "Run 'docker exec -it ubuntu-cloud /bin/bash' to enter the container"
+        tail -f /dev/null
